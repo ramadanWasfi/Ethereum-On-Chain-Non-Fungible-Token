@@ -1,66 +1,84 @@
-## Foundry
+# Moods
+Simple Ethereum smart contract for Non-fungible token (NFT) ERC-721 Stored On-Chain in form of SVG Images It consists only of two images
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-Foundry consists of:
+## Installation
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+### Prerequisites
+   - [Foundry](https://book.getfoundry.sh/getting-started/installation.html)
 
-## Documentation
+### Steps
+1. Clone the repository 
+   ```shell
+    git clone https://github.com/ramadanWasfi/Ethereum-On-Chain-Non-Fungible-Token.git
+   ``` 
+   ``` shell
+   cd Ethereum-On-Chain-Non-Fungible-Token
+   ```
 
-https://book.getfoundry.sh/
+2. install the dependencies 
+   ```shell
+    forge install
+   ``` 
 
-## Usage
-
-### Build
-
+### Compilation
+Compile the smart contracts using foundry:
 ```shell
-$ forge build
+forge build
+``` 
+
+### Testing
+Run the foundry tests
+```shell
+forge test
 ```
 
-### Test
+### Deployment
+#### Local Test Network (Anvil)
+1. Run an instance of Anvil network
+   ```shell
+      anvil
+    ```
+2. Open a new Terminal to deploy the contracts from it and type the following 
+   - If you created an account previously with the same name go to the DEPLOY step 
+   - Create an account for deployment with private key and password
+   ```shell
+   cast wallet import testAccount --interactive
+   ```
+   - copy a private key from Anvil accounts and paste it in terminal prompt
+   ``` shel
+       Enter private key:
+   ```
+   - enter new password for the account in the terminal prompt
+   ``` shel
+       Enter password:
+   ```
+   - now you will have an account with its address you can use the account name and address for deployment
+   ``` shell
+   testAccount keystore was saved successfully. 
+   Address: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+   ```
+   - `Account Name` : testAccount
+   - `Account Address`: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+   
+   - deploy with the previously created account and the password
+    ``` shell
+    forge script script/DeployDynamicNFT.s.sol  --rpc-url http://localhost:8545 --account testAccount --sender 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 --broadcast -vvv
+   ```
+   - enter the previously created password for this account
+   ```shell
+   ==========================
+   Enter keystore password:
+   ```
 
-```shell
-$ forge test
-```
+## Security Considerations
+- Don't use this smart contract in production environment without auditing
 
-### Format
+## Upgradeability
+- this contract is not an upgradable contract. Once you deploy it you can't change its logic
 
-```shell
-$ forge fmt
-```
+## Disclaimer
+- This project is for learning purposes only and not intended for production use
 
-### Gas Snapshots
 
-```shell
-$ forge snapshot
-```
 
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
